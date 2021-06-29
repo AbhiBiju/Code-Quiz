@@ -62,11 +62,12 @@ var questionsListIndex = 0;
 var getCount = document.getElementById("counter");
 var getDiv = document.getElementById("questionsBin");
 var choiceList = document.getElementById("choicesUl");
+var starter = document.getElementById("startBtn");
 
 var newDiv = document.createElement("div");
 
 // Function to countDown timer
-function countDown() {
+starter.addEventListener("click", function countDown() {
   var interval = setInterval(function () {
     getCount.innerHTML = count;
     count--;
@@ -76,7 +77,7 @@ function countDown() {
     }
   }, 1000);
   makeQuestions(questionsListIndex);
-}
+});
 
 // Function to edit questions
 function makeQuestions(questionsListIndex) {
