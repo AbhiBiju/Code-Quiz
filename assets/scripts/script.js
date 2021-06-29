@@ -62,6 +62,7 @@ var questionsListIndex = 0;
 var getCount = document.getElementById("counter");
 var getDiv = document.getElementById("questionsBin");
 var choiceList = document.getElementById("choicesUl");
+
 var newDiv = document.createElement("div");
 
 // Function to countDown timer
@@ -78,12 +79,12 @@ function countDown() {
 }
 
 // Function to edit questions
-function makeQuestions() {
+function makeQuestions(questionsListIndex) {
   // Reset Previous HTML
   questionsDiv.innerHTML = "";
   choiceList.innerHTML = "";
 
-  for (questionObj in questionsList) {
+  for (questionObj of questionsList) {
     var currentQuestion = questionsList[questionsListIndex].question;
     var currentChoices = questionsList[questionsListIndex].choices;
     // Set Current Question
@@ -127,8 +128,8 @@ function evaluate(event) {
 
   // Function to determine EndGame
   if (questionsListIndex >= questionsList.length) {
-    // All done will append last page with user stats
-    allDone();
+    // endGame will append last page with user stats
+    endGame();
     createDiv.textContent = "End of quiz!" + " " + "You got  " + score + "/" + questionsList.length + " Correct!";
   } else {
     render(questionsListIndex);
@@ -136,6 +137,89 @@ function evaluate(event) {
   questionsDiv.appendChild(createDiv);
 }
 
-// Function to add & editHighScores
+// EndGame Function to add & editHighScores
+function endGame() {
+  questionsDiv.innerHTML = "";
+  choiceList.innerHTML = "";
 
-// Main Function
+  // Heading:
+  var createH1 = document.createElement("h1");
+  createH1.setAttribute("id", "createH1");
+  createH1.textContent = "Quiz Over!";
+
+  questionsDiv.appendChild(createH1);
+
+  // Paragraph
+  var createP = document.createElement("p");
+  createP.setAttribute("id", "createP");
+
+  questionsDiv.appendChild(createP);
+
+  // Calculates time remaining and replaces it with score
+  if (count >= 0) {
+    var timeRemaining = count;
+    clearInterval(interval);
+    createP.textContent = "Your final score is: " + timeRemaining;
+
+    questionsDiv.appendChild(createP);
+  }
+
+  // Create a Label Tag
+  var createLabel = document.createElement("label");
+  createLabel.setAttribute("id", "createLabel");
+  createLabel.textContent = "Enter your initials: ";
+
+  questionsDiv.appendChild(createLabel);
+
+  // Then Creat an Input Field
+  var createInput = document.createElement("input");
+  createInput.setAttribute("type", "text");
+  createInput.setAttribute("id", "initials");
+  createInput.textContent = "";
+
+  questionsDiv.appendChild(createInput);
+
+  // Next Create a Submit Button
+  var createSubmit = document.createElement("button");
+  createSubmit.setAttribute("type", "submit");
+  createSubmit.setAttribute("id", "Submit");
+  createSubmit.textContent = "Submit";
+
+  questionsDiv.appendChild(createSubmit);
+
+  // Event listener to capture initials and local storage for initials and score
+  createSubmit.addEventListener("click", function () {
+    var initials = createInput.value;
+
+    if (initials === null) {
+      alert("Please enter your initials below");
+    } else {
+      var finalScore = {
+        initials: initials,
+        score: timeRemaining,
+      };
+      // Test if working
+      console.log(finalScore);
+
+      // Local Storage Setting and Getting
+      var allScores = localStorage.getItem("allScores");
+
+      if (allScores === null) {
+        allScores = [];
+      } else {
+        // JSON.parse to turn string to object that can be stored
+        allScores = JSON.parse(allScores);
+      }
+      allScores.push(finalScore);
+
+      // JSON.stringify turns object into string
+      var newScore = JSON.stringify(allScores);
+
+      // Set new score to allScores
+      localStorage.setItem("allScores", newScore);
+
+      // Travels to final page
+      window.location.replace("./HighScores.html");
+    }
+  });
+}

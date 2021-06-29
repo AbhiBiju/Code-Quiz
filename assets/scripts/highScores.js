@@ -1,6 +1,6 @@
-var highScore = document.querySelector("#highScore");
-var clearScores = document.querySelector("#clearScores");
-var goBack = document.querySelector("#goBack");
+var highScore = document.getElementById("highScore");
+var clearScores = document.getElementById("clearScores");
+var goBack = document.getElementById("goBack");
 
 clearScores.addEventListener("click", function () {
   localStorage.clear();
