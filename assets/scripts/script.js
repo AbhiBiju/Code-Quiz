@@ -63,6 +63,7 @@ var getCount = document.getElementById("counter");
 var getDiv = document.getElementById("questionsBin");
 var choiceList = document.getElementById("choicesUl");
 var starter = document.getElementById("startBtn");
+var interval = 0;
 
 var newDiv = document.createElement("div");
 
@@ -71,10 +72,13 @@ starter.addEventListener("click", function countDown() {
   var interval = setInterval(function () {
     getCount.innerHTML = count;
     count--;
+
+    // When Time Runs Out
     if (count === 0) {
       clearInterval(interval);
-      alert("You're out of time!");
+      getCount.textContent = "You're out of time!";
     }
+    // Updates every second
   }, 1000);
   makeQuestions(questionsListIndex);
 });
@@ -84,8 +88,9 @@ function makeQuestions(questionsListIndex) {
   // Reset Previous HTML
   getDiv.innerHTML = "";
   choiceList.innerHTML = "";
+  starter.remove();
 
-  for (questionObj of questionsList) {
+  for (var i = 0; i < questionsList.length; i++) {
     var currentQuestion = questionsList[questionsListIndex].question;
     var currentChoices = questionsList[questionsListIndex].choices;
     // Set Current Question
@@ -112,7 +117,7 @@ function evaluate(event) {
     var createDiv = document.createElement("div");
     createDiv.setAttribute("id", "createDiv");
     // Correct condition
-    if (choice.textContent == questions[questionsListIndex].answer) {
+    if (choice.textContent == questionsList[questionsListIndex].answer) {
       score++;
       createDiv.textContent = "Correct! The answer is:  " + questionsList[questionsListIndex].answer;
     }
@@ -133,7 +138,7 @@ function evaluate(event) {
     endGame();
     createDiv.textContent = "End of quiz!" + " " + "You got  " + score + "/" + questionsList.length + " Correct!";
   } else {
-    render(questionsListIndex);
+    makeQuestions(questionsListIndex);
   }
   getDiv.appendChild(createDiv);
 }
