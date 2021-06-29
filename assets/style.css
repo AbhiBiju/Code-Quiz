@@ -29,4 +29,5 @@ ul {
 }
 li {
   width: fit-content;
+  text-align: center;
 }

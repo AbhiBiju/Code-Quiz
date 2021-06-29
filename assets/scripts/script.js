@@ -77,6 +77,7 @@ starter.addEventListener("click", function countDown() {
     if (count === 0) {
       clearInterval(interval);
       getCount.textContent = "You're out of time!";
+      endGame;
     }
     // Updates every second
   }, 1000);
@@ -197,8 +198,9 @@ function endGame() {
   createSubmit.addEventListener("click", function () {
     var initials = createInput.value;
 
-    if (initials === null) {
-      alert("Please enter your initials below");
+    if (!initials) {
+      console.log("no initials");
+      alert("Please Enter Your Initials Below");
     } else {
       var finalScore = {
         initials: initials,
