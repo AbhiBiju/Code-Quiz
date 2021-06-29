@@ -82,7 +82,7 @@ starter.addEventListener("click", function countDown() {
 // Function to edit questions
 function makeQuestions(questionsListIndex) {
   // Reset Previous HTML
-  questionsDiv.innerHTML = "";
+  getDiv.innerHTML = "";
   choiceList.innerHTML = "";
 
   for (questionObj of questionsList) {
@@ -98,9 +98,9 @@ function makeQuestions(questionsListIndex) {
 
     listItem.textContent = newItem;
 
-    questionsDiv.appendChild(choiceList);
+    getDiv.appendChild(choiceList);
     choiceList.appendChild(listItem);
-    listItem.addEventListener("click", evaluate());
+    listItem.addEventListener("click", evaluate);
   });
 }
 
@@ -135,12 +135,12 @@ function evaluate(event) {
   } else {
     render(questionsListIndex);
   }
-  questionsDiv.appendChild(createDiv);
+  getDiv.appendChild(createDiv);
 }
 
 // EndGame Function to add & editHighScores
 function endGame() {
-  questionsDiv.innerHTML = "";
+  getDiv.innerHTML = "";
   choiceList.innerHTML = "";
 
   // Heading:
@@ -148,13 +148,13 @@ function endGame() {
   createH1.setAttribute("id", "createH1");
   createH1.textContent = "Quiz Over!";
 
-  questionsDiv.appendChild(createH1);
+  getDiv.appendChild(createH1);
 
   // Paragraph
   var createP = document.createElement("p");
   createP.setAttribute("id", "createP");
 
-  questionsDiv.appendChild(createP);
+  getDiv.appendChild(createP);
 
   // Calculates time remaining and replaces it with score
   if (count >= 0) {
@@ -162,7 +162,7 @@ function endGame() {
     clearInterval(interval);
     createP.textContent = "Your final score is: " + timeRemaining;
 
-    questionsDiv.appendChild(createP);
+    getDiv.appendChild(createP);
   }
 
   // Create a Label Tag
@@ -170,7 +170,7 @@ function endGame() {
   createLabel.setAttribute("id", "createLabel");
   createLabel.textContent = "Enter your initials: ";
 
-  questionsDiv.appendChild(createLabel);
+  getDiv.appendChild(createLabel);
 
   // Then Creat an Input Field
   var createInput = document.createElement("input");
@@ -178,7 +178,7 @@ function endGame() {
   createInput.setAttribute("id", "initials");
   createInput.textContent = "";
 
-  questionsDiv.appendChild(createInput);
+  getDiv.appendChild(createInput);
 
   // Next Create a Submit Button
   var createSubmit = document.createElement("button");
@@ -186,7 +186,7 @@ function endGame() {
   createSubmit.setAttribute("id", "Submit");
   createSubmit.textContent = "Submit";
 
-  questionsDiv.appendChild(createSubmit);
+  getDiv.appendChild(createSubmit);
 
   // Event listener to capture initials and local storage for initials and score
   createSubmit.addEventListener("click", function () {
