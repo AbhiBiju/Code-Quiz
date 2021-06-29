@@ -2,12 +2,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: hsl(250, 50%, 70%);
+  background-color: hsl(250, 50%, 30%);
+  color: hsl(250, 25%, 80%);
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 html {
+  font-size: 20px;
   text-align: center;
   padding: 5rem 20rem;
 }
+
+/* General Styles */
 header {
   display: flex;
   flex-flow: row wrap;
@@ -21,13 +26,61 @@ main {
 main > * {
   padding: 1rem 0;
 }
-#questionsBin > * {
-  padding: 0.5rem 0;
-}
 ul {
   list-style: none;
 }
 li {
-  width: fit-content;
-  text-align: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  color: hsl(250, 50%, 30%);
+  background-color: hsl(250, 26%, 72%);
+  border: 2px solid hsl(250, 50%, 20%);
+  box-shadow: 0px 0px 15px hsl(250, 50%, 90%);
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+
+/* Button Styles */
+#scoreBtn {
+  padding: 0.3rem;
+  background-color: hsl(250, 50%, 30%);
+  border-radius: 0.3rem;
+}
+#goBack {
+  padding: 0.3rem;
+  background-color: cornflowerblue;
+  border-radius: 0.3rem;
+}
+#clearScores {
+  margin: 1rem;
+  padding: 0.3rem;
+  background-color: cornflowerblue;
+  border-radius: 0.3rem;
+}
+#questionsBin > * {
+  padding: 0.5rem 0;
+  font-size: large;
+}
+#startBtn {
+  font-size: 1rem;
+  border-radius: 1rem;
+}
+
+/* Misc Styles */
+.timer {
+  color: blueviolet;
+}
+
+/* Hover Effects */
+li:hover {
+  background-color: hsl(250, 50%, 20%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: 0px 0px 35px hsl(212, 86%, 73%);
+}
+button:hover {
+  border: 2px inset;
+}
+.colored:hover {
+  color: hsl(210, 90%, 70%);
 }
