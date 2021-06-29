@@ -227,7 +227,7 @@ function endGame() {
       localStorage.setItem("allScores", newScore);
 
       // Travels to final page
-      window.location.replace("../../HighScores.html");
+      window.location.replace("../../highScores.html");
     }
   });
 }
