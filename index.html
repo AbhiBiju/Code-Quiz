@@ -7,14 +7,17 @@
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
-    <h2><button id="scoreBtn">View HighScores</button></h2>
-    <h2>Time: <span id="counter">0</span></h2>
-    <h1>Coding Quiz Challenge</h1>
-    <p>
-      Try to answer the following code-related questions within the time alloted. Keep in mind that incorrect answers
-      will penalize your score/time by ten seconds!
-    </p>
+    <a href="highScores.html"><button id="scoreBtn">View HighScores</button></a>
+    <div class="timer">Time: <span id="counter">60</span></div>
+    <div id="questionsBin">
+      <h1>Coding Quiz Challenge</h1>
+      <p>
+        Try to answer the following code-related questions within the time alloted. Keep in mind that incorrect answers
+        will penalize your score/time by ten seconds!
+      </p>
+    </div>
+    <ul id="choicesUl"></ul>
     <button id="startBtn">Start Quiz</button>
   </body>
-  <script src="./assets/script.js"></script>
+  <script src="./assets/scripts/script.js"></script>
 </html>
