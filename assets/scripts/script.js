@@ -9,7 +9,7 @@ var questionsList = [
       '<link rel="stylesheet" type="text/css" href="mystyle.css">',
       "<styles src=./assets/css/style.css>",
     ],
-    answer: '<linkrel="stylesheet" type="text/css" href="mystyle.css">',
+    answer: '<link rel="stylesheet" type="text/css" href="mystyle.css">',
   },
   {
     question: "Which is the correct CSS syntax?",
@@ -35,11 +35,11 @@ var questionsList = [
     question: "What is the correct CSS syntax for making all the <p> elements bold?",
     choices: [
       '<p style="text-size:bold;">',
-      '<p style="font-size:bold;">',
+      '<p style="font-weight:bold;">',
       "p {text-size:bold;}",
-      "p {font-size:bold;}",
+      "p {font-weight:bold;}",
     ],
-    answer: "p {font-size:bold;}",
+    answer: "p {font-weight:bold;}",
   },
   {
     question: "How do you display hyperlinks without an underline?",
@@ -55,11 +55,12 @@ var questionsList = [
 
 // Create Variables
 var count = 60;
-var penalty = 5;
+var penalty = 15;
 var score = 0;
 var questionsListIndex = 0;
 
 var getCount = document.getElementById("counter");
+var getTimer = document.getElementsByClassName("timer");
 var getDiv = document.getElementById("questionsBin");
 var choiceList = document.getElementById("choicesUl");
 var starter = document.getElementById("startBtn");
@@ -74,10 +75,10 @@ starter.addEventListener("click", function countDown() {
     count--;
 
     // When Time Runs Out
-    if (count === 0) {
-      clearInterval(interval);
-      getCount.textContent = "You're out of time!";
+    if (count <= 0 || questionsListIndex >= questionsList.length) {
+      getTimer[0].textContent = "Time's Up!";
       endGame;
+      clearInterval(interval);
     }
     // Updates every second
   }, 1000);
@@ -125,9 +126,12 @@ function evaluate(event) {
     // Incorrect condition
     else {
       // Will deduct -5 seconds off count for wrong answers
-      count = count - penalty;
+      if (count >= 0) {
+        count = count - penalty;
+      }
       createDiv.textContent = "Wrong! The correct answer is:  " + questionsList[questionsListIndex].answer;
     }
+    console.log(count);
   }
 
   // Move to Next Question Object
@@ -169,6 +173,11 @@ function endGame() {
     createP.textContent = "Your final score is: " + timeRemaining;
 
     getDiv.appendChild(createP);
+  } else {
+    clearInterval(interval);
+    createP.textContent = "Your final score is: 0";
+
+    getDiv.appendChild(createP);
   }
 
   // Create a Label Tag
@@ -198,16 +207,18 @@ function endGame() {
   createSubmit.addEventListener("click", function () {
     var initials = createInput.value;
 
-    if (!initials) {
+    if (!initials || initials % 1 == 0 || initials.length > 2) {
       console.log("no initials");
       alert("Please Enter Your Initials Below");
+      console.log("this", typeof initials, initials.length);
     } else {
       var finalScore = {
         initials: initials,
-        score: timeRemaining,
+        score: timeRemaining || 0,
       };
       // Test if working
       console.log(finalScore);
+      console.log("that", typeof initials);
 
       // Local Storage Setting and Getting
       var allScores = localStorage.getItem("allScores");
